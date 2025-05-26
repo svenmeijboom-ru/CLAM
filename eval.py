@@ -81,12 +81,12 @@ if args.task == 'task_1_tumor_vs_normal':
                             ignore=[])
 
 elif args.task == 'task_2_tumor_subtyping':
-    args.n_classes=3
+    args.n_classes=6
     dataset = Generic_MIL_Dataset(csv_path = 'dataset_csv/tumor_subtyping_dummy_clean.csv',
                             data_dir= os.path.join(args.data_root_dir, 'tumor_subtyping_resnet_features'),
                             shuffle = False, 
                             print_info = True,
-                            label_dict = {'subtype_1':0, 'subtype_2':1, 'subtype_3':2},
+                            label_dict = {'isup_0': 0, 'isup_1':1, 'isup_2':2, 'isup_3':3, 'isup_4':4, 'isup_5':5},
                             patient_strat= False,
                             ignore=[])
 
