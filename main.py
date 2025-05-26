@@ -170,7 +170,7 @@ elif args.task == 'task_2_tumor_subtyping':
                             shuffle = False, 
                             seed = args.seed, 
                             print_info = True,
-                            label_dict = {'isup_1':1, 'isup_2':2, 'isup_3':3, 'isup_4':4, 'isup_5':5},
+                            label_dict = {'isup_0': 0, 'isup_1':1, 'isup_2':2, 'isup_3':3, 'isup_4':4, 'isup_5':5},
                             patient_strat= False,
                             ignore=[])
 
