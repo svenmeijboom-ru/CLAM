@@ -87,7 +87,7 @@ def compute_from_patches(wsi_object, img_transforms, feature_extractor=None, cla
                         print(A[score_idx])
                         print("ref_scores")
                         print(ref_scores)
-                        A[score_idx] = score2percentile(A[score_idx], ref_scores)
+                        A[score_idx] = score2percentile(A[score_idx], ref_scores)[0]
 
                 asset_dict = {'attention_scores': A, 'coords': coords}
                 save_path = save_hdf5(attn_save_path, asset_dict, mode=mode)
