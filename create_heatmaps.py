@@ -320,7 +320,7 @@ if __name__ == '__main__':
 
         os.makedirs('heatmaps/results/', exist_ok=True)
         if data_args.process_list is not None:
-            process_stack.to_csv('heatmaps/results/{}.csv'.format(data_args.process_list.replace('.csv', '')), index=False)
+            process_stack.to_csv('heatmaps/results/results.csv')#.format(data_args.process_list.replace('.csv', '')), index=False)
         else:
             process_stack.to_csv('heatmaps/results/{}.csv'.format(exp_args.save_exp_code), index=False)
         
