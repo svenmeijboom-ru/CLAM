@@ -23,8 +23,9 @@ from tqdm import tqdm
 device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def score2percentile(score, ref):
-    s = float(np.asarray(score).ravel()[0])
-    percentile = percentileofscore(ref, s)
+    percentile = percentileofscore(ref, score)
+    print("PERCENTILE")
+    print(percentile)
     return percentile
 
 def drawHeatmap(scores, coords, slide_path=None, wsi_object=None, vis_level = -1, **kwargs):
@@ -70,6 +71,8 @@ def compute_from_patches(wsi_object, img_transforms, feature_extractor=None, cla
 
             if attn_save_path is not None:
                 A = model(features, attention_only=True)
+                print("A1")
+                print(A)
            
                 if A.size(0) > 1: #CLAM multi-branch attention
                     A = A[clam_pred]
@@ -78,6 +81,12 @@ def compute_from_patches(wsi_object, img_transforms, feature_extractor=None, cla
 
                 if ref_scores is not None:
                     for score_idx in range(len(A)):
+                        print("A2")
+                        print(A)
+                        print("A_INT")
+                        print(A[score_idx])
+                        print("ref_scores")
+                        print(ref_scores)
                         A[score_idx] = score2percentile(A[score_idx], ref_scores)
 
                 asset_dict = {'attention_scores': A, 'coords': coords}
