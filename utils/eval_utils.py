@@ -47,7 +47,7 @@ def initiate_model(args, ckpt_path, device='cuda'):
 
 def quadratic_kappa_coefficient(output, target):
     n_classes = target.shape[-1]
-    weights = torch.arange(0, n_classes, dtype=torch.float32) / (n_classes - 1)
+    weights = torch.arange(0, n_classes, dtype=torch.float32, device=output.device) / (n_classes - 1)
     weights = (weights - torch.unsqueeze(weights, -1)) ** 2
 
     C = (output.t() @ target).t()  # confusion matrix
@@ -72,7 +72,7 @@ def eval(dataset, args, ckpt_path):
     patient_results, test_error, auc, df, _ = summary(model, loader, args)
     print('test_error: ', test_error)
     print('auc: ', auc)
-    qkc = quadratic_kappa_coefficient(df["Y_hat"], df["Y"])
+    qkc = quadratic_kappa_coefficient(df["Y_hat"].to_numpy(), df["Y"].to_numpy())
     print('quadratic kappa coefficient: ', qkc)
     return model, patient_results, test_error, auc, df
 
