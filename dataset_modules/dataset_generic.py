@@ -341,7 +341,7 @@ class Generic_MIL_Dataset(Generic_WSI_Classification_Dataset):
 					features = torch.load(full_path)
 				except Exception as e:
 					warnings.warn(f"Skipping corrupted file {full_path!r}: {e}")
-					return None, (None, None)
+					return None, label
 				return features, label
 			else:
 				return slide_id, label
