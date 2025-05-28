@@ -495,6 +495,8 @@ def summary(model, loader, n_classes):
     patient_results = {}
 
     for batch_idx, (data, label) in enumerate(loader):
+        if batch_idx is None:
+            continue
         data, label = data.to(device), label.to(device)
         slide_id = slide_ids.iloc[batch_idx]
         with torch.inference_mode():
