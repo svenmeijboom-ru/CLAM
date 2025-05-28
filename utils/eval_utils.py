@@ -45,25 +45,6 @@ def initiate_model(args, ckpt_path, device='cuda'):
     _ = model.eval()
     return model
 
-def quadratic_kappa_coefficient(output, target):
-    n_classes = target.shape[-1]
-    weights = torch.arange(0, n_classes, dtype=torch.float32, device=output.device) / (n_classes - 1)
-    weights = (weights - torch.unsqueeze(weights, -1)) ** 2
-
-    C = (output.t() @ target).t()  # confusion matrix
-
-    hist_true = torch.sum(target, dim=0).unsqueeze(-1)
-    hist_pred = torch.sum(output, dim=0).unsqueeze(-1)
-
-    E = hist_true @ hist_pred.t()  # Outer product of histograms
-    E = E / C.sum() # Normalize to the sum of C.
-
-    num = weights * C
-    den = weights * E
-
-    QWK = 1 - torch.sum(num) / torch.sum(den)
-    return QWK
-
 def eval(dataset, args, ckpt_path):
     model = initiate_model(args, ckpt_path)
     
