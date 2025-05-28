@@ -10,7 +10,7 @@ import os
 import pandas as pd
 from utils.utils import *
 from utils.core_utils import Accuracy_Logger
-from sklearn.metrics import roc_auc_score, roc_curve, auc
+from sklearn.metrics import roc_auc_score, roc_curve, auc, cohen_kappa_score
 from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
 
@@ -74,7 +74,8 @@ def eval(dataset, args, ckpt_path):
     print('auc: ', auc)
     output = df['Y_hat'].to_numpy()
     target = df['Y'].to_numpy()
-    qkc = quadratic_kappa_coefficient(torch.from_numpy(output).float(), torch.from_numpy(target).float())
+    #qkc = quadratic_kappa_coefficient(torch.from_numpy(output).float(), torch.from_numpy(target).float())
+    qkc = cohen_kappa_score(target, output, weights='quadratic')
     print('quadratic kappa coefficient: ', qkc)
     return model, patient_results, test_error, auc, df
 
