@@ -72,7 +72,7 @@ def eval(dataset, args, ckpt_path):
     patient_results, test_error, auc, df, _ = summary(model, loader, args)
     print('test_error: ', test_error)
     print('auc: ', auc)
-    qkc = quadratic_kappa_coefficient(df["prob"], df["label"])
+    qkc = quadratic_kappa_coefficient(df["Y_hat"], df["Y"])
     print('quadratic kappa coefficient: ', qkc)
     return model, patient_results, test_error, auc, df
 
